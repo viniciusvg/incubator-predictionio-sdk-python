@@ -105,7 +105,7 @@ class BaseClient(object):
     :raises:
       ServerStatusError.
     """
-    path = "/"
+    path = "/pio/"
     request = AsyncRequest("GET", path)
     request.set_rfunc(self._aget_resp)
     self._connection.make_request(request)
@@ -231,7 +231,7 @@ class EventClient(BaseClient):
     if self.channel is not None:
       qparam["channel"] = self.channel
 
-    path = "/events.json?%s" % (urlencode(qparam), )
+    path = "/pio/events.json?%s" % (urlencode(qparam), )
 
     request = AsyncRequest("POST", path, **data)
     request.set_rfunc(self._acreate_resp)
@@ -261,7 +261,7 @@ class EventClient(BaseClient):
       qparam["channel"] = self.channel
 
     enc_event_id = urllib.quote(event_id, "") # replace special char with %xx
-    path = "/events/%s.json" % (enc_event_id, )
+    path = "/pio/events/%s.json" % (enc_event_id, )
     request = AsyncRequest("GET", path, **qparam)
     request.set_rfunc(self._aget_resp)
     self._connection.make_request(request)
@@ -304,7 +304,7 @@ class EventClient(BaseClient):
 
     if self.channel is not None:
       qparam["channel"] = self.channel
-    path = "/events.json"
+    path = "/pio/events.json"
     request = AsyncRequest("GET", path, **qparam)
     request.set_rfunc(self._aget_resp)
     self._connection.make_request(request)
@@ -336,7 +336,7 @@ class EventClient(BaseClient):
       qparam["channel"] = self.channel
 
     enc_event_id = urllib.quote(event_id, "") # replace special char with %xx
-    path = "/events/%s.json" % (enc_event_id, )
+    path = "/pio/events/%s.json" % (enc_event_id, )
     request = AsyncRequest("DELETE", path, **qparam)
     request.set_rfunc(self._adelete_resp)
     self._connection.make_request(request)
@@ -494,7 +494,7 @@ class EngineClient(BaseClient):
       AsyncRequest object. You can call the get_response() method using this
       object to get the final resuls or status of this asynchronous request.
     """
-    path = "/queries.json"
+    path = "/pio/queries.json"
     request = AsyncRequest("POST", path, **data)
     request.set_rfunc(self._aget_resp)
     self._connection.make_request(request)
